@@ -46,5 +46,11 @@ namespace goruntu_isleme_proje
 			goruntu_kirpma g = new goruntu_kirpma();
 			g.Show();
 		}
+
+		private void button6_Click(object sender, EventArgs e)
+		{
+			renk_uzayi r = new renk_uzayi();
+			r.Show();
+		}
 	}
 }
