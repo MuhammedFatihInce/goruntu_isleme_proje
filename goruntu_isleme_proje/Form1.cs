@@ -49,8 +49,32 @@ namespace goruntu_isleme_proje
 
 		private void button6_Click(object sender, EventArgs e)
 		{
-			renk_uzayi r = new renk_uzayi();
-			r.Show();
+			histogram_germe_genisletme h_s = new histogram_germe_genisletme();
+			h_s.Show();
 		}
-	}
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+			kontrast_azaltma k_a = new kontrast_azaltma();
+			k_a.Show();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+			Konvolisyyon_Median km = new Konvolisyyon_Median();
+			km.Show();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+			Gurultu_ekleme_ve_flitre_uygulama gurultu_Ekleme_Ve_Flitre_Uygulama = new Gurultu_ekleme_ve_flitre_uygulama();
+			gurultu_Ekleme_Ve_Flitre_Uygulama.Show();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+			Morfolojik_islemler mf = new Morfolojik_islemler();
+			mf.Show(); 
+        }
+    }
 }
