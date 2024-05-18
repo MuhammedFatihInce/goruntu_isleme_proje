@@ -18,7 +18,7 @@ namespace goruntu_isleme_proje
             InitializeComponent();
         }
         Bitmap GirisResmi;
-        int ResimGenisligi, ResimYuksekligi;
+        
 
        
 
@@ -29,8 +29,6 @@ namespace goruntu_isleme_proje
             pictureBox1.ImageLocation = openFileDialog1.FileName;
 
             GirisResmi = new Bitmap(pictureBox1.ImageLocation);
-            ResimGenisligi = GirisResmi.Width;
-            ResimYuksekligi = GirisResmi.Height;
         }
 
 
@@ -38,45 +36,37 @@ namespace goruntu_isleme_proje
 
         private void btnKontrast_Click(object sender, EventArgs e)
         {
-            int R = 0, G = 0, B = 0;
-            Color OkunanRenk, DonusenRenk;
-            Bitmap CikisResmi = new Bitmap(ResimGenisligi, ResimYuksekligi); //Cikis resmini oluşturuyor. Boyutları  giriş resmi ile aynı olur.
+            double faktör = Convert.ToDouble(textBox1.Text);
+            Bitmap CikisResmi = KarşıtlıkAzalt(GirisResmi, faktör);
+            pictureBox2.Image = CikisResmi;
+        }
 
-            double C_KontrastSeviyesi = Convert.ToInt32(textBox1.Text);
-            double F_KontrastFaktoru = (259 * (C_KontrastSeviyesi + 255)) / (255 * (259 -
-            C_KontrastSeviyesi));
-            for (int x = 0; x < ResimGenisligi; x++)
+        public static Bitmap KarşıtlıkAzalt(Bitmap image, double faktör)
+        {
+            Bitmap result = new Bitmap(image.Width, image.Height);
+
+            for (int x = 0; x < image.Width; x++)
             {
-                for (int y = 0; y < ResimYuksekligi; y++)
+                for (int y = 0; y < image.Height; y++)
                 {
-                    OkunanRenk = GirisResmi.GetPixel(x, y);
-                    R = OkunanRenk.R;
-                    G = OkunanRenk.G;
-                    B = OkunanRenk.B;
-                    R = (int)((F_KontrastFaktoru * (R - 128)) + 128);
-                    G = (int)((F_KontrastFaktoru * (G - 128)) + 128);
-                    B = (int)((F_KontrastFaktoru * (B - 128)) + 128);
-                    //Renkler sınırların dışına çıktıysa, sınır değer alınacak.
-                    if (R > 255) R = 255;
-                    if (G > 255) G = 255;
-                    if (B > 255) B = 255;
-                    if (R < 0) R = 0;
-                    if (G < 0) G = 0;
-                    if (B < 0) B = 0;
-                    DonusenRenk = Color.FromArgb(R, G, B);
-                    CikisResmi.SetPixel(x, y, DonusenRenk);
+                    Color pixelColor = image.GetPixel(x, y);
+                    int newRed = (int)(pixelColor.R * faktör);
+                    int newGreen = (int)(pixelColor.G * faktör);
+                    int newBlue = (int)(pixelColor.B * faktör);
+
+                    // Renk değerleri sınırların dışına çıkarsa sınır değer alınır
+                    newRed = Math.Max(0, Math.Min(255, newRed));
+                    newGreen = Math.Max(0, Math.Min(255, newGreen));
+                    newBlue = Math.Max(0, Math.Min(255, newBlue));
+
+                    Color newColor = Color.FromArgb(newRed, newGreen, newBlue);
+                    result.SetPixel(x, y, newColor);
                 }
             }
-            pictureBox2.Image = CikisResmi;
-           
+
+            return result;
         }
 
-        private void KontrastAyarla1_Scroll(object sender, ScrollEventArgs e)
-        {
-            textBox1.Text = KontrastAyarla1.Value.ToString();
-        }
-
-       
 
     }
 }

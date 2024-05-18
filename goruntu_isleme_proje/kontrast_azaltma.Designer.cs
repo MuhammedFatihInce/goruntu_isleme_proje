@@ -33,7 +33,6 @@ namespace goruntu_isleme_proje
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btnKontrast = new System.Windows.Forms.Button();
-            this.KontrastAyarla1 = new System.Windows.Forms.HScrollBar();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -73,19 +72,9 @@ namespace goruntu_isleme_proje
             this.btnKontrast.UseVisualStyleBackColor = true;
             this.btnKontrast.Click += new System.EventHandler(this.btnKontrast_Click);
             // 
-            // KontrastAyarla1
-            // 
-            this.KontrastAyarla1.Location = new System.Drawing.Point(305, 314);
-            this.KontrastAyarla1.Maximum = 264;
-            this.KontrastAyarla1.Minimum = -255;
-            this.KontrastAyarla1.Name = "KontrastAyarla1";
-            this.KontrastAyarla1.Size = new System.Drawing.Size(385, 26);
-            this.KontrastAyarla1.TabIndex = 15;
-            this.KontrastAyarla1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.KontrastAyarla1_Scroll);
-            // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(239, 313);
+            this.textBox1.Location = new System.Drawing.Point(649, 316);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(50, 27);
             this.textBox1.TabIndex = 17;
@@ -106,7 +95,6 @@ namespace goruntu_isleme_proje
             this.ClientSize = new System.Drawing.Size(1113, 465);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.KontrastAyarla1);
             this.Controls.Add(this.btnKontrast);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox1);
@@ -125,7 +113,6 @@ namespace goruntu_isleme_proje
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnKontrast;
-        private System.Windows.Forms.HScrollBar KontrastAyarla1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
     }

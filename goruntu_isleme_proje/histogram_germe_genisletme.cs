@@ -41,81 +41,25 @@ namespace goruntu_isleme_proje
  
         private void button3_Click(object sender, EventArgs e)
         {
-            Color OkunanRenk, DonusenRenk;
-            int R = 0, G = 0, B = 0;
-
-            Bitmap CikisResmi = new Bitmap(ResimGenisligi, ResimYuksekligi);
-
-            int X1, X2, Y1, Y2;
-            X1 = Convert.ToInt16(X1txt.Text);
-            X2 = Convert.ToInt16(X2txt.Text);
-            Y1 = Convert.ToInt16(Y1txt.Text);
-            Y2 = 255;
-
-            
-            for (int i = 0; i < ResimGenisligi; i++)
-            {
-                for (int j = 0; j < ResimYuksekligi; j++)
-                {
-                    OkunanRenk = GirisResmi.GetPixel(i, j);
-                    R = OkunanRenk.R;
-                    G = OkunanRenk.G;
-                    B = OkunanRenk.B;
-                    int Gri = (R + G + B) / 3;
-
-                    
-                    int X = Gri;
-                    int Y = ((((X - X1) * (Y2 - Y1)) / (X2 - X1)) + Y1);
-                    if (Y > 255) Y = 255;
-                    if (Y < 0) Y = 0;
-                    DonusenRenk = Color.FromArgb(Y, Y, Y);
-                    CikisResmi.SetPixel(i, j, DonusenRenk);
-                }
-            }
+            Bitmap outputImage = HistogramGermeIslemi(GirisResmi);
             pictureBox2.Refresh();
             pictureBox2.Image = null;
-            pictureBox2.Image = CikisResmi;
+            pictureBox2.Image = outputImage;
 
-            grafik_ciz(pictureBox4, CikisResmi);
+            grafik_ciz(pictureBox4, outputImage);
 
         }
         private void button5_Click(object sender, EventArgs e)
         {
-            Color OkunanRenk, DonusenRenk;
-            int R = 0, G = 0, B = 0;
+            
 
-            Bitmap CikisResmi_2 = new Bitmap(ResimGenisligi, ResimYuksekligi);
+            Bitmap outputImage = HistogramGenisletmeIslemi(GirisResmi);
 
-            int X1, X2, Y1, Y2;
-            X1 = Convert.ToInt16(X1txt.Text);
-            X2 = Convert.ToInt16(X2txt.Text);
-            Y1 = Convert.ToInt16(Y1txt.Text);
-            Y2 = 255;
-
-            for (int x = 0; x < ResimGenisligi; x++)
-            {
-                for (int y = 0; y < ResimYuksekligi; y++)
-                {
-                    OkunanRenk = GirisResmi.GetPixel(x, y);
-                    R = OkunanRenk.R;
-                    G = OkunanRenk.G;
-                    B = OkunanRenk.B;
-                    int Gri = (R + G + B) / 3;
-
-                    
-                    int X = Gri;
-                    int Y = ((X - X1) * Y2 / (X2 - X1));
-                    if (Y > 255) Y = 255;
-                    if (Y < 0) Y = 0;
-                    DonusenRenk = Color.FromArgb(Y, Y, Y);
-                    CikisResmi_2.SetPixel(x, y, DonusenRenk);
-                }
-            }
             pictureBox5.Refresh();
             pictureBox5.Image = null;
-            pictureBox5.Image = CikisResmi_2;
+            pictureBox5.Image = outputImage;
 
-            grafik_ciz(pictureBox6, CikisResmi_2);
+            grafik_ciz(pictureBox6, outputImage);
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -150,7 +94,8 @@ namespace goruntu_isleme_proje
                 int PikselSayisi = 0;
                 for (int s = 0; s < DiziPiksel.Count; s++) //resimdeki piksel sayısınca dönecek.
                 {
-                    if (r == Convert.ToInt16(DiziPiksel[s])) PikselSayisi++;
+                    if (r == Convert.ToInt16(DiziPiksel[s])) 
+                        PikselSayisi++;
                 }
                 DiziPikselSayilari[r] = PikselSayisi;
             }
@@ -202,13 +147,122 @@ namespace goruntu_isleme_proje
         }
 
 
+        public static Bitmap HistogramGenisletmeIslemi(Bitmap image)
+        {
+            Color OkunanRenk, DonusenRenk;
+            int R = 0, G = 0, B = 0;
+
+            Bitmap result = new Bitmap(image.Width, image.Height);
+
+
+            int Xmin = 255;
+            int Xmax = 0;
+            // Minimum ve maksimum piksel değerlerini bulma
+            for (int x = 0; x < image.Width; x++)
+            {
+                for (int y = 0; y < image.Height; y++)
+                {
+                    Color pixelRengi = image.GetPixel(x, y);
+                    int pixelDegeri = pixelRengi.R;
+                    if (pixelDegeri < Xmin)
+                    {
+                        Xmin = pixelDegeri;
+                    }
+                    if (pixelDegeri > Xmax) 
+                    {
+                        Xmax = pixelDegeri;
+                    } 
+                }
+            }
 
 
 
+            int X1, X2, Y2;
+            X1 = Xmin;
+            X2 = Xmax;
+            Y2 = 255;
 
+            for (int x = 0; x < image.Width; x++)
+            {
+                for (int y = 0; y < image.Height; y++)
+                {
+                    OkunanRenk = image.GetPixel(x, y);
+                    R = OkunanRenk.R;
+                    G = OkunanRenk.G;
+                    B = OkunanRenk.B;
+                    int Gri = (R + G + B) / 3;
+
+
+                    int X = Gri;
+                    int Y = ((X - X1) * Y2 / (X2 - X1));
+                    if (Y > 255) Y = 255;
+                    if (Y < 0) Y = 0;
+                    DonusenRenk = Color.FromArgb(Y, Y, Y);
+                    result.SetPixel(x, y, DonusenRenk);
+                }
+            }
+
+
+            return result;
+        }
+        public static Bitmap HistogramGermeIslemi(Bitmap image)
+        {
+            Color OkunanRenk, DonusenRenk;
+            int R = 0, G = 0, B = 0;
+
+            Bitmap result = new Bitmap(image.Width, image.Height);
+
+            int Xmin = 255;
+            int Xmax = 0;
+            // Minimum ve maksimum piksel değerlerini bulma
+            for (int x = 0; x < image.Width; x++)
+            {
+                for (int y = 0; y < image.Height; y++)
+                {
+                    Color pixelRengi = image.GetPixel(x, y);
+                    int pixelDegeri = pixelRengi.R;
+                    if (pixelDegeri < Xmin)
+                    {
+                        Xmin = pixelDegeri;
+                    }
+                    if (pixelDegeri > Xmax)
+                    {
+                        Xmax = pixelDegeri;
+                    }
+                }
+            }
+
+            int X1, X2, Y1, Y2;
+            X1 = Xmin;
+            X2 = Xmax;
+            Y1 = 0;
+            Y2 = 255;
+
+
+            for (int i = 0; i < image.Width; i++)
+            {
+                for (int j = 0; j < image.Height; j++)
+                {
+                    OkunanRenk = image.GetPixel(i, j);
+                    R = OkunanRenk.R;
+                    G = OkunanRenk.G;
+                    B = OkunanRenk.B;
+                    int Gri = (R + G + B) / 3;
+
+
+                    int X = Gri;
+                    int Y = ((((X - X1) * (Y2 - Y1)) / (X2 - X1)) + Y1);
+                    if (Y > 255) Y = 255;
+                    if (Y < 0) Y = 0;
+                    DonusenRenk = Color.FromArgb(Y, Y, Y);
+                    result.SetPixel(i, j, DonusenRenk);
+                }
+            }
+            return result;
+        }
     }
 
-   
+
 }
 
     
