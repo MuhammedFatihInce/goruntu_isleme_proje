@@ -103,7 +103,7 @@ namespace goruntu_isleme_proje
             int SablonBoyutu = 0;
             try
             {
-                SablonBoyutu = Convert.ToInt32(textBox1.Text);
+                SablonBoyutu = Convert.ToInt32(textBox2.Text);
             }
             catch
             {
