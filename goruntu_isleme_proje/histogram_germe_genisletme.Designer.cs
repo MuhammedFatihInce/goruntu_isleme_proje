@@ -37,9 +37,7 @@ namespace goruntu_isleme_proje
             this.button3 = new System.Windows.Forms.Button();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -126,35 +124,15 @@ namespace goruntu_isleme_proje
             this.pictureBox4.TabIndex = 20;
             this.pictureBox4.TabStop = false;
             // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(156, 366);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(199, 29);
-            this.button4.TabIndex = 21;
-            this.button4.Text = "Germe Histogram";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(47, 401);
+            this.button5.Location = new System.Drawing.Point(361, 331);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(199, 29);
             this.button5.TabIndex = 22;
             this.button5.Text = "Genişletme";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(47, 436);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(199, 29);
-            this.button6.TabIndex = 23;
-            this.button6.Text = "Genişletme Histogram";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // pictureBox5
             // 
@@ -272,9 +250,7 @@ namespace goruntu_isleme_proje
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.pictureBox5);
-            this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.button3);
@@ -305,9 +281,7 @@ namespace goruntu_isleme_proje
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.Label label4;

@@ -80,7 +80,7 @@ namespace goruntu_isleme_proje
                     {
                         for (j = -((SablonBoyutu - 1) / 2); j <= (SablonBoyutu - 1) / 2; j++)
                         {
-                            OkunanRenk = GirisResmi.GetPixel(x + i, y + j);
+                            OkunanRenk = CikisResmi.GetPixel(x + i, y + j);
                             toplamR = toplamR + OkunanRenk.R;
                             toplamG = toplamG + OkunanRenk.G;
                             toplamB = toplamB + OkunanRenk.B;
@@ -125,7 +125,7 @@ namespace goruntu_isleme_proje
                     {
                         for (j = -((SablonBoyutu - 1) / 2); j <= (SablonBoyutu - 1) / 2; j++)
                         {
-                            OkunanRenk = GirisResmi.GetPixel(x + i, y + j);
+                            OkunanRenk = CikisResmi.GetPixel(x + i, y + j);
                             R[k] = OkunanRenk.R;
                             G[k] = OkunanRenk.G;
                             B[k] = OkunanRenk.B;

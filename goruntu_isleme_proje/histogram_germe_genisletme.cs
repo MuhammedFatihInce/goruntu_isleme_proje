@@ -19,8 +19,7 @@ namespace goruntu_isleme_proje
         }
 
         Bitmap GirisResmi;
-        Bitmap CikisResmi;
-        Bitmap CikisResmi_2;
+        
         int ResimGenisligi, ResimYuksekligi;
 
         private void button1_Click(object sender, EventArgs e)
@@ -39,65 +38,60 @@ namespace goruntu_isleme_proje
             grafik_ciz(pictureBox3, GirisResmi);
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            grafik_ciz(pictureBox4, CikisResmi);
-        }
-
-
-
+ 
         private void button3_Click(object sender, EventArgs e)
         {
             Color OkunanRenk, DonusenRenk;
             int R = 0, G = 0, B = 0;
 
-            CikisResmi = new Bitmap(ResimGenisligi, ResimYuksekligi);
+            Bitmap CikisResmi = new Bitmap(ResimGenisligi, ResimYuksekligi);
 
             int X1, X2, Y1, Y2;
             X1 = Convert.ToInt16(X1txt.Text);
             X2 = Convert.ToInt16(X2txt.Text);
             Y1 = Convert.ToInt16(Y1txt.Text);
-            Y2 = Convert.ToInt16(Y2txt.Text);
+            Y2 = 255;
 
-            int i = 0, j = 0; //Çıkış resminin x ve y si olacak.
-            for (int x = 0; x < ResimGenisligi; x++)
+            
+            for (int i = 0; i < ResimGenisligi; i++)
             {
-                for (int y = 0; y < ResimYuksekligi; y++)
+                for (int j = 0; j < ResimYuksekligi; j++)
                 {
-                    OkunanRenk = GirisResmi.GetPixel(x, y);
+                    OkunanRenk = GirisResmi.GetPixel(i, j);
                     R = OkunanRenk.R;
                     G = OkunanRenk.G;
                     B = OkunanRenk.B;
                     int Gri = (R + G + B) / 3;
 
-                    //*********** Kontras Formülü ***************
+                    
                     int X = Gri;
                     int Y = ((((X - X1) * (Y2 - Y1)) / (X2 - X1)) + Y1);
                     if (Y > 255) Y = 255;
                     if (Y < 0) Y = 0;
                     DonusenRenk = Color.FromArgb(Y, Y, Y);
-                    CikisResmi.SetPixel(x, y, DonusenRenk);
+                    CikisResmi.SetPixel(i, j, DonusenRenk);
                 }
             }
             pictureBox2.Refresh();
             pictureBox2.Image = null;
             pictureBox2.Image = CikisResmi;
-           
+
+            grafik_ciz(pictureBox4, CikisResmi);
+
         }
         private void button5_Click(object sender, EventArgs e)
         {
             Color OkunanRenk, DonusenRenk;
             int R = 0, G = 0, B = 0;
 
-            CikisResmi_2 = new Bitmap(ResimGenisligi, ResimYuksekligi);
+            Bitmap CikisResmi_2 = new Bitmap(ResimGenisligi, ResimYuksekligi);
 
             int X1, X2, Y1, Y2;
             X1 = Convert.ToInt16(X1txt.Text);
             X2 = Convert.ToInt16(X2txt.Text);
             Y1 = Convert.ToInt16(Y1txt.Text);
-            Y2 = Convert.ToInt16(Y2txt.Text);
+            Y2 = 255;
 
-            int i = 0, j = 0; //Çıkış resminin x ve y si olacak.
             for (int x = 0; x < ResimGenisligi; x++)
             {
                 for (int y = 0; y < ResimYuksekligi; y++)
@@ -108,7 +102,7 @@ namespace goruntu_isleme_proje
                     B = OkunanRenk.B;
                     int Gri = (R + G + B) / 3;
 
-                    //*********** Kontras Formülü ***************
+                    
                     int X = Gri;
                     int Y = ((X - X1) * Y2 / (X2 - X1));
                     if (Y > 255) Y = 255;
@@ -120,12 +114,10 @@ namespace goruntu_isleme_proje
             pictureBox5.Refresh();
             pictureBox5.Image = null;
             pictureBox5.Image = CikisResmi_2;
-        }
 
-        private void button6_Click(object sender, EventArgs e)
-        {
             grafik_ciz(pictureBox6, CikisResmi_2);
         }
+
         private void button7_Click(object sender, EventArgs e)
         {
             pictureBox1.Image = null;
@@ -138,7 +130,7 @@ namespace goruntu_isleme_proje
 
         private void grafik_ciz(PictureBox pictureBox, Bitmap resim)
         {
-            
+
             ArrayList DiziPiksel = new ArrayList();
             int OrtalamaRenk = 0;
             Color OkunanRenk;
@@ -181,11 +173,10 @@ namespace goruntu_isleme_proje
                     RenkMaksPikselSayisi = DiziPikselSayilari[k];
                 }
             }
-
             X1txt.Text = EnKucukRenkDegeri.ToString();
             X2txt.Text = EnBuyukRenkDegeri.ToString();
             Y1txt.Text = "0";
-            Y2txt.Text = "255";
+            Y2txt.Text = RenkMaksPikselSayisi.ToString();
 
             Graphics CizimAlani;
             Pen Kalem1 = new Pen(System.Drawing.Color.DarkRed, 1);
@@ -209,7 +200,16 @@ namespace goruntu_isleme_proje
                     CizimAlani.DrawLine(Kalem2, X1, Y1, X2, 0);
             }
         }
+
+
+
+
+
+
     }
 
-    
+   
 }
+
+    
+
